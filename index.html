@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Store</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #0f2027, #000);
+            color: white;
+            text-align: center;
+        }
+.owner-name{
+    font-size:32px;
+    margin-top:10px;
+    color:#00ffff;
+    text-shadow:0 0 15px cyan;
+}
+
+
+        h1 {
+            margin-top: 40px;
+            font-size: 42px;
+            letter-spacing: 2px;
+        }
+
+        /* COLUMN LAYOUT */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            padding: 50px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .card {
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid cyan;
+            border-radius: 15px;
+            padding: 35px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0,255,255,0.4);
+        }
+
+        .card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 30px cyan;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        footer {
+            margin-top: 40px;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>NOTES STORE</h1>
+
+    <div class="container">
+        <a href="secondyear.html" style="text-decoration:none; color:white;">
+    <div class="card"><h2>2nd Year Notes</h2></div>
+</a>
+        <div class="card"><h2>PYQs</h2></div>
+    </div>
+
+    <footer>
+        <h2 class="owner-name">by Mohd Sameer</h2>
+
+    </footer>
+
+</body>
+</html>

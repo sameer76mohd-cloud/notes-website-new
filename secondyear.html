@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2nd Year Notes</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#000;
+    color:#00ffff;
+    text-align:center;
+}
+
+h1{
+    margin-top:30px;
+    letter-spacing:2px;
+}
+
+.box{
+    max-width:500px;
+    margin:50px auto;
+    padding:30px;
+    border:1px solid cyan;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(0,255,255,0.4);
+}
+
+select{
+    width:100%;
+    padding:12px;
+    margin:15px 0;
+    border-radius:8px;
+    background:#000;
+    color:cyan;
+    border:1px solid cyan;
+    font-size:16px;
+}
+
+.download-btn{
+    display:block;
+    margin-top:20px;
+    padding:15px;
+    border:1px solid cyan;
+    border-radius:10px;
+    color:#00ffff;
+    cursor:pointer;
+}
+
+.download-btn:hover{
+    background:cyan;
+    color:#000;
+}
+
+a{
+    color:#00ffff;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>2nd Year Notes Library</h1>
+<p>by Mohd Sameer</p>
+
+<div class="box">
+
+<select id="subject">
+  <option value="">-- Select Subject --</option>
+  <option value="dstl">DSTL</option>
+  <option value="ds">Data Structures</option>
+  <option value="si">Sensor & Instrumentation</option>
+  <option value="coa">COA</option>
+  <option value="tc">Technical Communication</option>
+  <option value="python">Python</option>
+</select>
+
+<select id="unit">
+  <option value="">-- Select Unit --</option>
+  <option value="unit1">Unit 1</option>
+  <option value="unit2">Unit 2</option>
+  <option value="unit3">Unit 3</option>
+  <option value="unit4">Unit 4</option>
+  <option value="unit5">Unit 5</option>
+</select>
+
+<div class="download-btn" onclick="downloadNotes()">
+  📄 Download Notes (PDF)
+</div>
+
+</div>
+
+<p><a href="index.html">⬅ Back to Home</a></p>
+
+<script>
+function downloadNotes(){
+    const subject = document.getElementById("subject").value;
+    const unit = document.getElementById("unit").value;
+
+    if(subject === "" || unit === ""){
+        alert("Please select Subject and Unit first!");
+        return;
+    }
+
+    const filePath = `notes/${subject}/${unit}.pdf`;
+    window.open(filePath, "_blank");
+}
+</script>
+
+</body>
+</html>
