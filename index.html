@@ -2,60 +2,145 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Notes Store</title>
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===== BODY & BACKGROUND ===== */
+body{
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #0f2027, #000);
+    color:white;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* ===== ANIMATED BACKGROUND ===== */
+.bg-animation{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    overflow:hidden;
+}
+
+.bg-animation span{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:cyan;
+    border-radius:50%;
+    opacity:0.7;
+    animation: float 20s linear infinite;
+}
+
+/* random positions */
+.bg-animation span:nth-child(1){ left:10%; animation-delay:0s;}
+.bg-animation span:nth-child(2){ left:25%; animation-delay:4s;}
+.bg-animation span:nth-child(3){ left:40%; animation-delay:8s;}
+.bg-animation span:nth-child(4){ left:55%; animation-delay:12s;}
+.bg-animation span:nth-child(5){ left:70%; animation-delay:16s;}
+.bg-animation span:nth-child(6){ left:85%; animation-delay:2s;}
+
+@keyframes float{
+    0%{ top:100%; transform:scale(0.5);}
+    100%{ top:-10%; transform:scale(1.2);}
+}
+
+/* ===== TITLE ===== */
+h1{
+    margin-top:40px;
+    font-size:42px;
+    letter-spacing:2px;
+    text-shadow:0 0 20px cyan;
+}
+
+/* ===== OWNER ===== */
+.owner-name{
+    font-size:32px;
+    margin-top:10px;
+    color:#00ffff;
+    text-shadow:0 0 15px cyan;
+}
+
+/* ===== CARDS ===== */
+.container{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    padding:50px;
+    max-width:400px;
+    margin:auto;
+}
+
+.card{
+    background: rgba(0,255,255,0.08);
+    border:1px solid cyan;
+    border-radius:15px;
+    padding:35px 20px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 15px rgba(0,255,255,0.4);
+}
+
+.card:hover{
+    transform:scale(1.07);
+    box-shadow:0 0 35px cyan;
+}
+
+.card h2{
+    font-size:22px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    margin-top:40px;
+    opacity:0.8;
+    font-size:14px;
+}
+
+/* ===== MOBILE SAFE ===== */
+@media(max-width:600px){
+    h1{ font-size:32px; }
+    .owner-name{ font-size:24px; }
+}
+</style>
 </head>
+
 <body>
 
-<header class="navbar">
-  <div class="logo">Notes Store</div>
-  <nav>
-    <a href="#notes">Notes</a>
-    <a href="#pyqs">PYQs</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+<!-- LIVE WALLPAPER EFFECT -->
+<div class="bg-animation">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+</div>
 
-<section class="hero">
-  <h1>Welcome to Notes Store</h1>
-  <p>All your study resources in one place</p>
-</section>
+<h1>NOTES STORE</h1>
 
-<section id="notes" class="cards-grid">
+<div class="container">
 
-  <a href="1styear.html" class="card">
-    <h2>📘 1st Year Notes</h2>
-    <p>Complete study material</p>
-  </a>
+    <a href="secondyear.html" style="text-decoration:none;color:white;">
+        <div class="card">
+            <h2>2nd Year Notes</h2>
+        </div>
+    </a>
 
-  <a href="2ndyear.html" class="card">
-    <h2>📗 2nd Year Notes</h2>
-    <p>Latest revision notes</p>
-  </a>
+    <div class="card">
+        <h2>PYQs</h2>
+    </div>
 
-  <a href="videolectures.html" class="card">
-    <h2>🎥 Video Lectures</h2>
-    <p>Study with videos</p>
-  </a>
+</div>
 
-</section>
-
-<section id="pyqs" class="pyqs-section">
-  <h2>Previous Year Questions</h2>
-  <a href="pyqs.html" class="btn">View PYQs</a>
-</section>
-
-<footer id="contact">
-  <p>Join our community:</p>
-  <div class="social-links">
-    <a href="https://t.me">Telegram</a>
-    <a href="https://youtube.com">YouTube</a>
-  </div>
-  <p>Made by Mohd Sameer ❤️</p>
+<footer>
+    <h2 class="owner-name">by Mohd Sameer</h2>
 </footer>
 
 </body>
