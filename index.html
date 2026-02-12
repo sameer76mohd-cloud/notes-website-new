@@ -1,33 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes Store</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Notes Store</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #0f2027, #000);
+            color: white;
+            text-align: center;
+        }
+.owner-name{
+    font-size:32px;
+    margin-top:10px;
+    color:#00ffff;
+    text-shadow:0 0 15px cyan;
+}
+
+
+        h1 {
+            margin-top: 40px;
+            font-size: 42px;
+            letter-spacing: 2px;
+        }
+
+        /* COLUMN LAYOUT */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            padding: 50px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .card {
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid cyan;
+            border-radius: 15px;
+            padding: 35px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0,255,255,0.4);
+        }
+
+        .card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 30px cyan;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        footer {
+            margin-top: 40px;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-  <header class="main-header">
-    <h1>Notes Store</h1>
-    <p>Your academic notes, neat & organized</p>
-  </header>
 
-  <main class="container">
-    <section class="cards">
-      <div class="card">
-        <h2>2nd Year Notes</h2>
-        <p>Latest notes & resources available</p>
-      </div>
+    <h1>NOTES STORE</h1>
 
-      <div class="card">
-        <h2>PYQs</h2>
-        <p>Previous Year Question Papers</p>
-      </div>
-    </section>
-  </main>
+    <div class="container">
+        <a href="secondyear.html" style="text-decoration:none; color:white;">
+    <div class="card"><h2>2nd Year Notes</h2></div>
+</a>
+        <div class="card"><h2>PYQs</h2></div>
+    </div>
 
-  <footer class="footer">
-    <p>by Mohd Sameer</p>
-  </footer>
+    <footer>
+        <h2 class="owner-name">by Mohd Sameer</h2>
+
+    </footer>
+
 </body>
 </html>
