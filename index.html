@@ -12,16 +12,17 @@
     box-sizing:border-box;
 }
 
-/* ===== BODY & BACKGROUND ===== */
+/* ===== BODY ===== */
 body{
     font-family: Arial, sans-serif;
     background: radial-gradient(circle at top, #0f2027, #000);
     color:white;
     text-align:center;
     overflow:hidden;
+    perspective:1200px;
 }
 
-/* ===== ANIMATED BACKGROUND ===== */
+/* ===== BACKGROUND ANIMATION ===== */
 .bg-animation{
     position:fixed;
     top:0;
@@ -42,7 +43,6 @@ body{
     animation: float 20s linear infinite;
 }
 
-/* random positions */
 .bg-animation span:nth-child(1){ left:10%; animation-delay:0s;}
 .bg-animation span:nth-child(2){ left:25%; animation-delay:4s;}
 .bg-animation span:nth-child(3){ left:40%; animation-delay:8s;}
@@ -63,61 +63,65 @@ h1{
     text-shadow:0 0 20px cyan;
 }
 
-/* ===== OWNER ===== */
-.owner-name{
-    font-size:32px;
-    margin-top:10px;
-    color:#00ffff;
-    text-shadow:0 0 15px cyan;
-}
-
-/* ===== CARDS ===== */
+/* ===== CONTAINER ===== */
 .container{
     display:flex;
     flex-direction:column;
-    gap:25px;
-    padding:50px;
-    max-width:400px;
+    gap:30px;
+    padding:60px 20px;
+    max-width:420px;
     margin:auto;
+    transform-style:preserve-3d;
 }
 
+/* ===== 3D CARDS ===== */
 .card{
-    background: rgba(0,255,255,0.08);
+    background:rgba(0,255,255,0.08);
     border:1px solid cyan;
-    border-radius:15px;
-    padding:35px 20px;
+    border-radius:18px;
+    padding:40px 20px;
     cursor:pointer;
-    transition:0.3s;
-    box-shadow:0 0 15px rgba(0,255,255,0.4);
+    transition:transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow:0 15px 30px rgba(0,255,255,0.3);
+    transform-style:preserve-3d;
 }
 
 .card:hover{
-    transform:scale(1.07);
-    box-shadow:0 0 35px cyan;
+    transform:
+        rotateX(12deg)
+        rotateY(-12deg)
+        translateZ(40px)
+        scale(1.05);
+    box-shadow:0 35px 60px rgba(0,255,255,0.7);
 }
 
 .card h2{
-    font-size:22px;
+    font-size:24px;
+    transform:translateZ(30px);
 }
 
 /* ===== FOOTER ===== */
 footer{
-    margin-top:40px;
-    opacity:0.8;
-    font-size:14px;
+    margin-top:30px;
 }
 
-/* ===== MOBILE SAFE ===== */
+.owner-name{
+    font-size:28px;
+    color:#00ffff;
+    text-shadow:0 0 15px cyan;
+}
+
+/* ===== MOBILE ===== */
 @media(max-width:600px){
     h1{ font-size:32px; }
-    .owner-name{ font-size:24px; }
+    .owner-name{ font-size:22px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LIVE WALLPAPER EFFECT -->
+<!-- BACKGROUND EFFECT -->
 <div class="bg-animation">
     <span></span><span></span><span></span>
     <span></span><span></span><span></span>
