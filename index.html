@@ -2,169 +2,345 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Notes Store</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET ===== */
-*{
+  :root{
+    --bg:#0a0e12;
+    --panel:#11161c;
+    --line:rgba(255,255,255,0.08);
+    --teal:#5eead4;
+    --text:#eef1f3;
+    --muted:#8a94a0;
+  }
+ 
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+ 
+  body{
     margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-/* ===== BODY ===== */
-body{
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #0f2027, #000);
-    color:white;
-    text-align:center;
-    overflow:hidden;
-    perspective:1200px;
-}
-
-/* ===== BACKGROUND ANIMATION ===== */
-.bg-animation{
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+ 
+  /* ---------- SPLASH ---------- */
+  .splash{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
+    inset:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+    animation:splashOut 0.6s ease-in 4.1s forwards;
     overflow:hidden;
-}
-
-/* 🔥 BIGGER BALLS */
-.bg-animation span{
+  }
+ 
+  .splash::before{
+    content:"";
     position:absolute;
-    width:20px;
-    height:20px;
-    background:cyan;
+    width:340px;
+    height:340px;
+    background:radial-gradient(circle, rgba(94,234,212,0.14), transparent 70%);
+    opacity:0;
+    animation:glowPulse 3.4s ease-out 0.1s forwards;
+  }
+  @keyframes glowPulse{
+    0%{ opacity:0; transform:scale(0.6); }
+    30%{ opacity:1; transform:scale(1); }
+    100%{ opacity:0.5; transform:scale(1.15); }
+  }
+ 
+  @keyframes splashOut{
+    to{ opacity:0; visibility:hidden; pointer-events:none; }
+  }
+ 
+  /* ---- colourful spinning ring ---- */
+  .ring{
+    position:absolute;
+    width:120px;
+    height:120px;
     border-radius:50%;
-    opacity:0.8;
-    animation: float 9s linear infinite;
-    box-shadow:0 0 15px cyan;
-}
-
-/* 🔥 MORE BALLS (12) */
-.bg-animation span:nth-child(1){ left:5%;  animation-delay:0s;}
-.bg-animation span:nth-child(2){ left:15%; animation-delay:2s;}
-.bg-animation span:nth-child(3){ left:25%; animation-delay:4s;}
-.bg-animation span:nth-child(4){ left:35%; animation-delay:6s;}
-.bg-animation span:nth-child(5){ left:45%; animation-delay:8s;}
-.bg-animation span:nth-child(6){ left:55%; animation-delay:10s;}
-.bg-animation span:nth-child(7){ left:65%; animation-delay:12s;}
-.bg-animation span:nth-child(8){ left:75%; animation-delay:14s;}
-.bg-animation span:nth-child(9){ left:85%; animation-delay:16s;}
-.bg-animation span:nth-child(10){ left:95%; animation-delay:1s;}
-.bg-animation span:nth-child(11){ left:50%; animation-delay:5s;}
-.bg-animation span:nth-child(12){ left:30%; animation-delay:9s;}
-
-@keyframes float{
-    0%{
-        top:110%;
-        transform:scale(0.6) translateZ(0);
-    }
-    100%{
-        top:-10%;
-        transform:scale(1.4) translateZ(200px);
-    }
-}
-
-/* ===== TITLE ===== */
-h1{
-    margin-top:40px;
-    font-size:42px;
-    letter-spacing:2px;
-    text-shadow:0 0 20px cyan;
-}
-
-/* ===== CONTAINER ===== */
-.container{
+    background:conic-gradient(from 0deg,
+      #5eead4, #60a5fa, #a78bfa, #f472b6, #fbbf24, #5eead4);
+    -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 9px));
+            mask:radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 9px));
+    animation:ringSpin 1.6s cubic-bezier(.45,.05,.35,1) forwards;
+  }
+  @keyframes ringSpin{
+    0%{   opacity:0; transform:rotate(0deg) scale(0.7); }
+    12%{  opacity:1; transform:rotate(160deg) scale(1); }
+    78%{  opacity:1; transform:rotate(760deg) scale(1); }
+    100%{ opacity:0; transform:rotate(880deg) scale(0.35); }
+  }
+ 
+  .splash-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,7vw,48px);
+    letter-spacing:0.5px;
+    display:flex;
+    perspective:400px;
+    z-index:1;
+  }
+ 
+  .splash-name .letter{
+    display:inline-block;
+    opacity:0;
+    filter:blur(6px);
+    transform:translateY(28px) rotateX(70deg) scale(0.7);
+    animation:letterIn 0.6s cubic-bezier(.2,.85,.35,1.15) forwards;
+    animation-delay:calc(1.55s + var(--i) * 0.055s);
+    transform-origin:bottom center;
+  }
+  .splash-name .letter.space{ width:0.35em; }
+  .splash-name .accent{ color:var(--teal); }
+ 
+  @keyframes letterIn{
+    60%{ opacity:1; filter:blur(0); transform:translateY(-4px) rotateX(0) scale(1.05); }
+    100%{ opacity:1; filter:blur(0); transform:translateY(0) rotateX(0) scale(1); }
+  }
+ 
+  .splash-name.settled{
+    animation:nameGlow 1.8s ease-in-out 0s infinite;
+  }
+  @keyframes nameGlow{
+    0%,100%{ text-shadow:0 0 0 rgba(94,234,212,0); }
+    50%{ text-shadow:0 0 22px rgba(94,234,212,0.45); }
+  }
+ 
+  .splash-sub{
+    position:absolute;
+    bottom:calc(50% - 64px);
+    left:50%;
+    transform:translate(-50%,6px);
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--muted);
+    opacity:0;
+    animation:subIn 0.6s ease 1.6s forwards;
+  }
+ 
+  @keyframes subIn{
+    to{ opacity:1; transform:translate(-50%,0); }
+  }
+ 
+  .splash-rule{
+    position:absolute;
+    top:calc(50% + 34px);
+    left:50%;
+    width:0;
+    height:1px;
+    background:var(--teal);
+    transform:translateX(-50%);
+    animation:ruleIn 0.5s ease 2.5s forwards;
+  }
+  @keyframes ruleIn{
+    to{ width:72px; }
+  }
+ 
+  /* ---------- MAIN PAGE ---------- */
+  .page{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:32px 16px;
+  }
+ 
+  .panel{
+    width:100%;
+    max-width:420px;
+    opacity:0;
+    animation:reveal 0.7s ease-out 4.3s forwards;
+  }
+ 
+  @keyframes reveal{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+ 
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 8px;
+  }
+ 
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(32px,7vw,40px);
+    margin:0 0 34px;
+    letter-spacing:0.3px;
+  }
+ 
+  .stack{
     display:flex;
     flex-direction:column;
-    gap:30px;
-    padding:60px 20px;
-    max-width:420px;
-    margin:auto;
-    transform-style:preserve-3d;
-}
-
-/* ===== 3D CARDS ===== */
-.card{
-    background:rgba(0,255,255,0.08);
-    border:1px solid cyan;
-    border-radius:18px;
-    padding:40px 20px;
+    gap:12px;
+  }
+ 
+  a.card, .card{
+    text-decoration:none;
+    color:inherit;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 18px;
     cursor:pointer;
-    transition:transform 0.4s ease, box-shadow 0.4s ease;
-    box-shadow:0 15px 30px rgba(0,255,255,0.3);
-    transform-style:preserve-3d;
-}
-
-.card:hover{
-    transform:
-        rotateX(12deg)
-        rotateY(-12deg)
-        translateZ(40px)
-        scale(1.05);
-    box-shadow:0 35px 60px rgba(0,255,255,0.7);
-}
-
-.card h2{
-    font-size:24px;
-    transform:translateZ(30px);
-}
-
-/* ===== FOOTER ===== */
-footer{
+    transition:border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  }
+  .card:hover{
+    border-color:rgba(94,234,212,0.4);
+    background:#141a21;
+    transform:translateY(-2px);
+  }
+  .card:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:2px;
+  }
+ 
+  .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--teal);
+    width:28px;
+    height:28px;
+    border:1px solid rgba(94,234,212,0.35);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+ 
+  .card-body{ flex:1; min-width:0; }
+  .card-body h2{
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+  }
+  .card-body p{
+    margin:3px 0 0;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+ 
+  .arrow{
+    color:var(--muted);
+    font-size:16px;
+    transition:transform 0.2s ease, color 0.2s ease;
+  }
+  .card:hover .arrow{ transform:translateX(3px); color:var(--teal); }
+ 
+  .soon{
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--muted);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:3px 9px;
+    flex-shrink:0;
+  }
+ 
+  footer{
     margin-top:30px;
-}
-
-.owner-name{
-    font-size:28px;
-    color:#00ffff;
-    text-shadow:0 0 15px cyan;
-}
-
-/* ===== MOBILE ===== */
-@media(max-width:600px){
-    h1{ font-size:32px; }
-    .owner-name{ font-size:22px; }
-}
+    text-align:center;
+  }
+  footer p{
+    margin:0;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  footer span{
+    color:var(--text);
+    font-weight:500;
+  }
+ 
+  @media (prefers-reduced-motion: reduce){
+    .splash{ animation:none; display:none; }
+    .panel{ animation:none; opacity:1; transform:none; }
+    .ring{ display:none; }
+  }
 </style>
 </head>
-
 <body>
-
-<!-- BACKGROUND BALLS -->
-<div class="bg-animation">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-</div>
-
-<h1>NOTES STORE</h1>
-
-<div class="container">
-
-    <a href="secondyear.html" style="text-decoration:none;color:white;">
-        <div class="card">
+ 
+  <div class="splash">
+    <span class="ring"></span>
+    <span class="splash-sub">Welcome</span>
+    <h1 class="splash-name" id="splashName" aria-label="Mohd Sameer"></h1>
+    <span class="splash-rule"></span>
+  </div>
+ 
+  <div class="page">
+    <div class="panel">
+      <p class="eyebrow">Notes Store</p>
+      <h1>Pick a section</h1>
+ 
+      <div class="stack">
+        <a class="card" href="secondyear.html">
+          <span class="num">01</span>
+          <div class="card-body">
             <h2>2nd Year Notes</h2>
+            <p>Organized subject-wise notes</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+ 
+        <div class="card">
+          <span class="num">02</span>
+          <div class="card-body">
+            <h2>PYQs</h2>
+            <p>Previous year question papers</p>
+          </div>
+          <span class="soon">Soon</span>
         </div>
-    </a>
-
-    <div class="card">
-        <h2>PYQs</h2>
+      </div>
+ 
+      <footer>
+        <p>Made by <span>Mohd Sameer</span></p>
+      </footer>
     </div>
-
-</div>
-
-<footer>
-    <h2 class="owner-name">by Mohd Sameer</h2>
-</footer>
-
+  </div>
+ 
+  <script>
+    (function(){
+      var el = document.getElementById('splashName');
+      var text = 'Mohd Sameer';
+      var accentStart = text.indexOf('Sameer'); // letters from here get the teal accent
+      var frag = document.createDocumentFragment();
+ 
+      text.split('').forEach(function(ch, i){
+        var span = document.createElement('span');
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        span.className = 'letter' + (ch === ' ' ? ' space' : '') + (i >= accentStart ? ' accent' : '');
+        span.style.setProperty('--i', i);
+        frag.appendChild(span);
+      });
+      el.appendChild(frag);
+ 
+      // once every letter has landed, switch on the idle glow pulse
+      var baseDelay = 1.55;
+      var lastDelay = baseDelay + (text.length - 1) * 0.055;
+      var settleAt = (lastDelay + 0.6) * 1000;
+      setTimeout(function(){ el.classList.add('settled'); }, settleAt);
+    })();
+  </script>
 </body>
 </html>
-
-
-
+ 
